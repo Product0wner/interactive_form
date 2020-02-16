@@ -181,6 +181,34 @@ option {
 }
 
 /* ================================= 
+  Custom css for IDs
+==================================== */
+#costText,#costValue, #activityText {
+	padding: 5px;
+	width: 50%;
+	margin-left: 2.5%;	
+}
+
+#activityText{
+	padding: 5px;
+	width: 50%;
+	padding: 10px 0px 0px 0px;
+	margin: 0;
+}
+
+.errorMessage{
+	color: red;
+	font-size: 14px;
+	display: none;
+}
+
+#activity_error{
+	color:grey;
+}
+
+
+
+/* ================================= 
   Media Queries
 ==================================== */
 

@@ -15,16 +15,18 @@
       <h1>Full Stack Conf</h1>
     </header>
 
-    <form action="index.html" method="post" novalidate>
+    <form action="index.html" method="post" onSubmit="return validateFormTest()">
               
       <fieldset>         
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
         <input type="text" id="name" name="user-name">
+        <p><span class="errorMessage" id="name_error">Please enter a name</span></p>
         
         <label for="mail">Email:</label>
         <input type="email" id="mail" name="user-email">
+        <p><span class="errorMessage" id="email_error">Please enter a valid email</span></p>
         
         <label for="title">Job Role</label>
         <select id="title" name="user-title">
@@ -63,7 +65,8 @@
 
           <div id="colors-js-puns" class="">
             <label for="color">Color:</label>
-            <select id="color">
+            <select id="color"> Please select a T-shirt theme
+              <option value="default">Please select a T-shirt theme</option>
               <option value="cornflowerblue">Cornflower Blue (JS Puns shirt only)</option>
               <option value="darkslategrey">Dark Slate Grey (JS Puns shirt only)</option> 
               <option value="gold">Gold (JS Puns shirt only)</option> 
@@ -121,17 +124,20 @@
 
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user-cc-num" type="text">
+            <input id="cc-num" name="user-cc-num" type="text">
+            <p><span class ="errorMessage "id="cc-num_error">Please use a valid card (13-16 digits) </span></p>
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
-            <input id="zip" name="user-zip" type="text"> 
+            <input id="zip" name="user-zip" type="text">
+            <p><span class="errorMessage" id="zip_error">Zip needs 5 digits </span></p>
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
             <input id="cvv" name="user-cvv" type="text"> 
+            <p><span class="errorMessage" id="cvv_error">CVV needs 3 digits </span></p>
           </div>
 
           <label for="exp-month">Expiration Date:</label>
@@ -168,9 +174,7 @@
         </div>                  
 
       </fieldset>        
-        
-      <button type="submit">Register</button>
-      
+      <button id="submitButton" type="submit">Register</button>
     </form>
 
   </div>
