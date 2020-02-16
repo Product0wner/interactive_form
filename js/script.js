@@ -196,8 +196,8 @@ let validateFormTest = () => {
         $("#cvv").first().focus();
         $('#cvv_error').show();
         return false
-    } else if (selectedActivties < 2){
-        alert("You need to select at least 2 activities")
+    } else if (selectedActivties < 1){
+        alert("You need to select at least 1 activity")
         return false
     }
 }
