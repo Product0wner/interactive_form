@@ -1,6 +1,6 @@
 // RGEX that is used for form validation & user tipps
 let $userNameRGEX = /.*\S.*/;
-let $userEmailRGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
+let $userEmailRGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,3})$/;
 let $creditCardRGEX = /^[0-9]{13,16}$/;
 let $zipCodeRGEX = /^[0-9]{5}$/;
 let $cvvCodeRGEX = /^[0-9]{3}$/;
@@ -129,6 +129,12 @@ let $selectedPayment = $('#payment').on('change',
 );
 
 // Real time validation after key down for the input fields
+$("#name").after('<p><span class="errorMessage" id="name_error">Please enter a name</span></p>');
+$("#mail").after('<p><span class="errorMessage" id="email_error_empty">Dont leave this blank</span></p>')
+$("#mail").after('<p><span class="errorMessage" id="email_error_format">Please enter a valid email</span></p>')
+$("#cc-num").after('<p><span class ="errorMessage "id="cc-num_error">Please use a valid card (13-16 digits) </span></p>')
+$("#zip").after('<p><span class="errorMessage" id="zip_error">Zip needs 5 digits </span></p>')
+$("#cvv").after('<p><span class="errorMessage" id="cvv_error">CVV needs 3 digits </span></p>')
 
 $('#name').on('keypress keydown keyup',function(){
     if(!$(this).val().match($userNameRGEX)) {
@@ -139,10 +145,15 @@ $('#name').on('keypress keydown keyup',function(){
 });
 
 $('#mail').on('keypress keydown keyup',function(){
-    if (!$(this).val().match($userEmailRGEX)) {
-        $('#email_error').show();
-    } else{
-        $('#email_error').hide();
+    if ((!$(this).val().match($userNameRGEX)) && !$(this).val().match($userEmailRGEX)) {
+        $('#email_error_format').hide();
+        $('#email_error_empty').show();
+    } else if (!$(this).val().match($userEmailRGEX)) {
+        $('#email_error_empty').hide();
+        $('#email_error_format').show();
+    } else {
+        $('#email_error_format').hide();
+        $('#email_error_empty').hide();
     }
 });
 
@@ -176,10 +187,18 @@ let validateFormTest = () => {
         $("#name").first().focus();
         $('#name_error').show();
         return false
+    } else if(!$("#mail").val().match($userEmailRGEX) && !$("#mail").val().match($userNameRGEX)) {
+        alert("Dont leave your email blank.");
+        $("#mail").first().focus();
+        $('#email_error_empty').show();
+        return false
     } else if(!$("#mail").val().match($userEmailRGEX)) {
         alert("Duh, your email seems not valid.");
         $("#mail").first().focus();
-        $('#email_error').show();
+        $('#email_error_format').show();
+        return false
+    } else if (selectedActivties < 1){
+        alert("You need to select at least 1 activity")
         return false
     } else if( $('#payment').val() === "credit card" && !$("#cc-num").val().match($creditCardRGEX)) {
         alert("Please check your credit card number.");
